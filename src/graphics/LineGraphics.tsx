@@ -17,7 +17,11 @@ const LineGraphics = (props: LineGraphicsProps) => {
     const points: Point[] = [];
 
     props.vertices.forEach((vertex) => {
-      points.push(new Point(vertex.x, vertex.y));
+      points.push(new Point(vertex.x, vertex.y - 10));
+    });
+
+    props.vertices.reverse().forEach((vertex) => {
+      points.push(new Point(vertex.x, vertex.y + 10));
     });
 
     const polygon = new Polygon(points);
@@ -34,20 +38,19 @@ const LineGraphics = (props: LineGraphicsProps) => {
         g.lineStyle(5, props.color, 1);
 
         // hit area draw
-        if (polygon !== undefined) {
-          g.drawPolygon(polygon);
-        }
+        // if (polygon !== undefined) {
+        //   g.drawPolygon(polygon);
+        // }
 
-        // props.vertices.forEach((vertex, index) => {
-        //   if (index === 0) {
-        //     g.moveTo(vertex.x, vertex.y);
-        //   } else {
-        //     g.lineTo(vertex.x, vertex.y);
-        //   }
-        // });
+        props.vertices.forEach((vertex, index) => {
+          if (index === 0) {
+            g.moveTo(vertex.x, vertex.y);
+          } else {
+            g.lineTo(vertex.x, vertex.y);
+          }
+        });
       }}
       onpointerup={props.handleUp}
-      on
     />
   );
 };
